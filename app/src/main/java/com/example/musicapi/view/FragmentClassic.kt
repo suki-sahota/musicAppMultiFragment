@@ -15,9 +15,12 @@ import kotlinx.android.synthetic.main.fragment_recycler_view.view.*
 
 class FragmentClassic() : Fragment(), IFragment {
 
-    private lateinit var listener: IView
-    private val adapter: MusicAdapter by lazy { MusicAdapter() }
+    private lateinit var iView: IView
+    private val adapter: MusicAdapter by lazy { MusicAdapter(listener) }
     private val presenter: Presenter by lazy { Presenter() }
+    private var listener: (item: Card) -> Unit = {
+        (activity as MainActivity).playAudio(it)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,9 +55,9 @@ class FragmentClassic() : Fragment(), IFragment {
     }
 
     override fun displayData(dataSet: List<Card>, context: Context) {
-        if (context is MainActivity) listener = context // Lately initialize here...
+        if (context is MainActivity) iView = context // Lately initialize here...
         adapter.dataSet = dataSet
-        listener.dismissProgress()
+        iView.dismissProgress()
     }
 
     companion object {

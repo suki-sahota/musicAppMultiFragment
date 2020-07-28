@@ -15,10 +15,10 @@ class Presenter() {
 
     fun getMusic(genre: String) {
         IMusicApi.getMusicApi().getMusic(genre) // Observable<MusicModel>
-            .subscribeOn(Schedulers.io()) // Subscribe to worker thread
-            .observeOn(AndroidSchedulers.mainThread()) // Observer
+            .subscribeOn(Schedulers.io()) // Subscribe on worker thread
+            .observeOn(AndroidSchedulers.mainThread()) // Observer on main thread
             .subscribe {
-                when(genre) { // Combine these three at the end with one function in main
+                when(genre) {
                     "rock" -> view.displayData(it.results, FragmentRock.newInstance)
                     "classick" -> view.displayData(it.results, FragmentClassic.newInstance)
                     else -> view.displayData(it.results, FragmentPop.newInstance)

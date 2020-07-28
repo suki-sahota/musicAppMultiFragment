@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musicapi.R
 import com.example.musicapi.model.Card
 
-class MusicAdapter: RecyclerView.Adapter<MusicVH>() {
+class MusicAdapter(val listener: (item: Card) -> Unit): RecyclerView.Adapter<MusicVH>() {
 
     var dataSet = listOf<Card>()
         set(value) { // Customized Setter
@@ -25,6 +25,6 @@ class MusicAdapter: RecyclerView.Adapter<MusicVH>() {
     }
 
     override fun onBindViewHolder(holder: MusicVH, position: Int) {
-        holder.onBind(dataSet[position])
+        holder.onBind(dataSet[position], listener)
     }
 }

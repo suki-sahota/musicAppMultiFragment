@@ -9,11 +9,14 @@ import kotlinx.android.synthetic.main.music_item_layout.view.*
 
 class MusicVH(private val itemMusic: View): RecyclerView.ViewHolder(itemMusic) {
 
-    fun onBind(item: Card) {
+    fun onBind(item: Card, listener: (item: Card) -> Unit) {
         Picasso.get().load(item.artworkUrl60).into(itemMusic.iv_album_cover)
         itemMusic.tv_title.text = item.collectionName
         itemMusic.tv_artist.text = item.artistName
         itemMusic.tv_price.text =
             itemMusic.context.getString(R.string.album_price, item.trackPrice.toString())
+        itemMusic.setOnClickListener {
+            listener.invoke(item)
+        }
     }
 }
