@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MusicApi</string>
+    <string name="image_description">Album Cover Image</string>
+    <string name="rock_genre">Rock</string>
+    <string name="classic_genre">Classic</string>
+    <string name="pop_genre">Pop</string>
+    <string name="album_price">%s USD</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_no_connection">No Connection</string>
+    <string name="tab_rock">Rock</string>
+    <string name="tab_classic">Classic</string>
+    <string name="tab_pop">Pop</string>
+</resources>
