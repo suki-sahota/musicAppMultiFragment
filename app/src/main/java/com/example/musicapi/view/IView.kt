@@ -10,8 +10,6 @@ interface IView {
     fun showToast(message: String)
     fun showProgress()
     fun dismissProgress()
-    fun getMusic(genre: String)
-    fun displayRockData(dataSet: List<Card>, fragment: FragmentRock)
-    fun displayClassicData(dataSet: List<Card>, fragment: FragmentClassic)
-    fun displayPopData(dataSet: List<Card>, fragment: FragmentPop)
+    fun bindFrag(frag: IFragment)
+    fun displayData(dataSet: List<Card>, frag: IFragment)
 }

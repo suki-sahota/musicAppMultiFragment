@@ -7,8 +7,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ViewPagerAdapter(fa: FragmentActivity, private val context: Context): FragmentStateAdapter(fa) {
 
-//    private val TAG = "ViewPagerAdapter"
-
     private lateinit var listener: IView
 
     enum class FragmentType {
@@ -16,13 +14,14 @@ class ViewPagerAdapter(fa: FragmentActivity, private val context: Context): Frag
     }
 
     override fun createFragment(position: Int): Fragment {
-        if (context is MainActivity) listener = context // Late initialization happens here...
+        if (context is MainActivity) listener = context // Lately initialize here...
         listener.showProgress()
+        listener.bindFrag(FragmentRock.newInstance)
         return when(position) {
-            FragmentType.Rock.ordinal -> FragmentRock()
-            FragmentType.Classic.ordinal -> FragmentClassic()
-            FragmentType.Pop.ordinal -> FragmentPop()
-            else -> FragmentRock()
+            FragmentType.Rock.ordinal -> FragmentRock.newInstance
+            FragmentType.Classic.ordinal -> FragmentClassic.newInstance
+            FragmentType.Pop.ordinal -> FragmentPop.newInstance
+            else -> FragmentRock.newInstance
         }
     }
     override fun getItemCount(): Int = 3

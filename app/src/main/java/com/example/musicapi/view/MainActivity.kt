@@ -12,24 +12,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IView {
 
-//    private val TAG = "MainActivity"
-
-    private val presenter: Presenter = Presenter()
+    private val presenter: Presenter by lazy { Presenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        FragmentRock.presenter = presenter
-        FragmentClassic.presenter = presenter
-        FragmentPop.presenter = presenter
         showProgress()
-        bindPresenter()
+        bindPresenter() // Important step to bind Presenter
         swipeAdapter()
     }
 
     override fun bindPresenter() {
-        presenter.onBind(this)
+        presenter.onBind(this) // Lazily initialize here...
     }
 
     override fun swipeAdapter() {
@@ -75,19 +70,15 @@ class MainActivity : AppCompatActivity(), IView {
         progress_bar.visibility = View.GONE
     }
 
-    override fun getMusic(genre: String) {
-        presenter.getMusic(genre)
+    override fun bindFrag(frag: IFragment) {
+        MainActivity.frag = frag // Lately initialize here...
     }
 
-    override fun displayRockData(dataSet: List<Card>, fragment: FragmentRock) {
-        fragment.displayData(dataSet, this)
+    override fun displayData(dataSet: List<Card>, frag: IFragment) {
+        frag.displayData(dataSet, this)
     }
 
-    override fun displayClassicData(dataSet: List<Card>, fragment: FragmentClassic) {
-        fragment.displayData(dataSet, this)
-    }
-
-    override fun displayPopData(dataSet: List<Card>, fragment: FragmentPop) {
-        fragment.displayData(dataSet, this)
+    companion object {
+        private lateinit var frag: IFragment
     }
 }

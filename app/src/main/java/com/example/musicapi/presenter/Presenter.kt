@@ -7,20 +7,10 @@ import com.example.musicapi.view.IView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-//class Presenter(val view: ViewInterface) { // SOLID design principles (avoid hot fixes!)
-class Presenter {
-
-//    private val TAG = "Presenter"
-
-    private lateinit var view: IView
-    companion object {
-        lateinit var fragmentRock: FragmentRock
-        lateinit var fragmentClassic: FragmentClassic
-        lateinit var fragmentPop: FragmentPop
-    }
+class Presenter() {
 
     fun onBind(view: IView) {
-        this.view = view // Late initialization happens here...
+        Presenter.view = view // Lately initialize here...
     }
 
     fun getMusic(genre: String) {
@@ -28,11 +18,15 @@ class Presenter {
             .subscribeOn(Schedulers.io()) // Subscribe to worker thread
             .observeOn(AndroidSchedulers.mainThread()) // Observer
             .subscribe {
-                when(genre) {
-                    "rock" -> view.displayRockData(it.results, fragmentRock)
-                    "classick" -> view.displayClassicData(it.results, fragmentClassic)
-                    else -> view.displayPopData(it.results, fragmentPop)
+                when(genre) { // Combine these three at the end with one function in main
+                    "rock" -> view.displayData(it.results, FragmentRock.newInstance)
+                    "classick" -> view.displayData(it.results, FragmentClassic.newInstance)
+                    else -> view.displayData(it.results, FragmentPop.newInstance)
                 }
             }
+    }
+
+    companion object {
+        private lateinit var view: IView
     }
 }

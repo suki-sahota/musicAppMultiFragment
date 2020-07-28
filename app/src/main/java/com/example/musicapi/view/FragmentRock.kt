@@ -13,21 +13,15 @@ import com.example.musicapi.presenter.Presenter
 import kotlinx.android.synthetic.main.fragment_recycler_view.*
 import kotlinx.android.synthetic.main.fragment_recycler_view.view.*
 
-
-class FragmentRock() : Fragment() {
-
-//    private val TAG = "FragmentRock"
+class FragmentRock() : Fragment(), IFragment {
 
     private lateinit var listener: IView
     private val adapter: MusicAdapter by lazy { MusicAdapter() }
-    companion object {
-        lateinit var presenter: Presenter
-    }
+    private val presenter: Presenter by lazy { Presenter() }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Ensures fragment is implemented in an activity that inherits IView
-        if (context is MainActivity) listener = context // Late initialization happens here...
+
     }
 
     override fun onCreateView(
@@ -40,14 +34,13 @@ class FragmentRock() : Fragment() {
             R.layout.fragment_recycler_view, container, false)
 
         view.recycler_view.layoutManager = LinearLayoutManager(activity)
-        view.recycler_view.adapter = adapter // Constructor in lazy block is called...
+        view.recycler_view.adapter = adapter // Lazily initialize here...
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Presenter.fragmentRock = this
         getMeMusic()
         swipe_refresh.setOnRefreshListener {
             getMeMusic()
@@ -55,13 +48,18 @@ class FragmentRock() : Fragment() {
         }
     }
 
-    private fun getMeMusic() {
-        presenter.getMusic("rock")
+    override fun getMeMusic() {
+        presenter.getMusic("rock") // Lazily initialize here...
     }
 
-    fun displayData(dataSet: List<Card>, context: Context) {
+    override fun displayData(dataSet: List<Card>, context: Context) {
         if (context is MainActivity) listener = context // Late initialization happens here...
         adapter.dataSet = dataSet
         listener.dismissProgress()
+    }
+
+    companion object {
+        @JvmStatic
+        val newInstance: FragmentRock = FragmentRock()
     }
 }

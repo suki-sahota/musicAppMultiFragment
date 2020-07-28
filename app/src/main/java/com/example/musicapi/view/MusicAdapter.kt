@@ -8,10 +8,8 @@ import com.example.musicapi.model.Card
 
 class MusicAdapter: RecyclerView.Adapter<MusicVH>() {
 
-//    private val TAG = "MusicAdapter"
-
     var dataSet = listOf<Card>()
-        set(value) { // Replaces whole dataSet with value
+        set(value) { // Customized Setter
             field = value
             notifyDataSetChanged()
         }
