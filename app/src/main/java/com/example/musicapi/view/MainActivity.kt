@@ -37,11 +37,20 @@ class MainActivity : AppCompatActivity(), IView {
 
         TabLayoutMediator(tab_layout, pager,
             TabLayoutMediator.TabConfigurationStrategy
-            { tab, position
-                -> when (position){
-                0 -> tab.text = getString(R.string.tab_rock)
-                1 -> tab.text = getString(R.string.tab_classic)
-                2 -> tab.text = getString(R.string.tab_pop)
+            { tab, position ->
+                when (position){
+                    ViewPagerAdapter.FragmentType.Rock.ordinal -> {
+                    tab.icon = getDrawable(R.drawable.ic_rock_24)
+                    tab.text = getString(R.string.tab_rock)
+                }
+                    ViewPagerAdapter.FragmentType.Classic.ordinal -> {
+                    tab.icon = getDrawable(R.drawable.ic_classic_24)
+                    tab.text = getString(R.string.tab_classic)
+                }
+                    ViewPagerAdapter.FragmentType.Pop.ordinal -> {
+                    tab.icon = getDrawable(R.drawable.ic_pop_24)
+                    tab.text = getString(R.string.tab_pop)
+                }
             }
             }).attach()
     }
