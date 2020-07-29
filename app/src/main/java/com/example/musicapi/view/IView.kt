@@ -10,7 +10,6 @@ interface IView {
     fun showToast(message: String)
     fun showProgress()
     fun dismissProgress()
-    fun bindFrag(frag: IFragment)
     fun displayData(dataSet: List<Card>, frag: IFragment)
     fun playAudio(item: Card)
 }

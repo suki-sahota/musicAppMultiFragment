@@ -7,16 +7,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ViewPagerAdapter(fa: FragmentActivity, private val context: Context): FragmentStateAdapter(fa) {
 
-    private lateinit var listener: IView
+    private lateinit var iView: IView
 
     enum class FragmentType {
         Rock, Classic, Pop
     }
 
     override fun createFragment(position: Int): Fragment {
-        if (context is MainActivity) listener = context // Lately initialize here...
-        listener.showProgress()
-        listener.bindFrag(FragmentRock.newInstance)
+        if (context is MainActivity) iView = context // Lately initialize here...
+        iView.showProgress()
         return when(position) {
             FragmentType.Rock.ordinal -> FragmentRock.newInstance
             FragmentType.Classic.ordinal -> FragmentClassic.newInstance

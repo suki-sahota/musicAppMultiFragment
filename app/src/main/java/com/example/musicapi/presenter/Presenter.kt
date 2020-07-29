@@ -9,8 +9,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class Presenter() {
 
-    fun onBind(view: IView) {
-        Presenter.view = view // Lately initialize here...
+    fun onBind(iView: IView) {
+        Presenter.iView = iView // Lately initialize here...
     }
 
     fun getMusic(genre: String) {
@@ -19,14 +19,14 @@ class Presenter() {
             .observeOn(AndroidSchedulers.mainThread()) // Observer on main thread
             .subscribe {
                 when(genre) {
-                    "rock" -> view.displayData(it.results, FragmentRock.newInstance)
-                    "classick" -> view.displayData(it.results, FragmentClassic.newInstance)
-                    else -> view.displayData(it.results, FragmentPop.newInstance)
+                    "rock" -> iView.displayData(it.results, FragmentRock.newInstance)
+                    "classick" -> iView.displayData(it.results, FragmentClassic.newInstance)
+                    else -> iView.displayData(it.results, FragmentPop.newInstance)
                 }
             }
     }
 
     companion object {
-        private lateinit var view: IView
+        private lateinit var iView: IView
     }
 }

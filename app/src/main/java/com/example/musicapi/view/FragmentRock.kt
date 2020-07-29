@@ -24,7 +24,6 @@ class FragmentRock() : Fragment(), IFragment {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
     }
 
     override fun onCreateView(
@@ -56,7 +55,7 @@ class FragmentRock() : Fragment(), IFragment {
     }
 
     override fun displayData(dataSet: List<Card>, context: Context) {
-        if (context is MainActivity) iView = context // Late initialization happens here...
+        if (context is MainActivity) iView = context // Lately initialize here...
         adapter.dataSet = dataSet
         iView.dismissProgress()
     }

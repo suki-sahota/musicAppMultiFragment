@@ -73,10 +73,6 @@ class MainActivity : AppCompatActivity(), IView {
         progress_bar.visibility = View.GONE
     }
 
-    override fun bindFrag(frag: IFragment) {
-        MainActivity.frag = frag // Lately initialize here...
-    }
-
     override fun displayData(dataSet: List<Card>, frag: IFragment) {
         frag.displayData(dataSet, this)
     }
@@ -86,9 +82,5 @@ class MainActivity : AppCompatActivity(), IView {
             setDataAndType(Uri.parse(item.previewUrl), "video/*")
         }
         startActivity(audioIntent)
-    }
-
-    companion object {
-        private lateinit var frag: IFragment
     }
 }

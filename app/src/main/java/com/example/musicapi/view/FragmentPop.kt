@@ -55,7 +55,7 @@ class FragmentPop() : Fragment(), IFragment {
     }
 
     override fun displayData(dataSet: List<Card>, context: Context) {
-        if (context is MainActivity) iView = context // Late initialization happens here...
+        if (context is MainActivity) iView = context // Lately initialize here...
         adapter.dataSet = dataSet
         iView.dismissProgress()
     }
