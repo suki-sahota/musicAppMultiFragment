@@ -78,9 +78,13 @@ class MainActivity : AppCompatActivity(), IView {
     }
 
     override fun playAudio(item: Card) {
+        // Create implicit intent
         val audioIntent = Intent(ACTION_VIEW).apply {
-            setDataAndType(Uri.parse(item.previewUrl), "video/*")
+            setDataAndType(Uri.parse(item.previewUrl), "audio/*")
         }
+
+        // Send implicit intent to system
         startActivity(audioIntent)
+
     }
 }

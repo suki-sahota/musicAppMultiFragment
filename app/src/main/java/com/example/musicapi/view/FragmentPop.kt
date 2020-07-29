@@ -13,7 +13,7 @@ import com.example.musicapi.presenter.Presenter
 import kotlinx.android.synthetic.main.fragment_recycler_view.*
 import kotlinx.android.synthetic.main.fragment_recycler_view.view.*
 
-class FragmentPop() : Fragment(), IFragment {
+class FragmentPop : Fragment(), IFragment {
 
     private lateinit var iView: IView
     private val adapter: MusicAdapter by lazy { MusicAdapter(listener) }
